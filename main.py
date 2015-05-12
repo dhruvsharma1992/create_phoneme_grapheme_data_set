@@ -1,4 +1,7 @@
+from records import *
+
 INPUT_FILE = "wordsLogios.txt" #OP
+
 with open(INPUT_FILE) as fread:
     for line in fread:
         word=line.split()[0]
