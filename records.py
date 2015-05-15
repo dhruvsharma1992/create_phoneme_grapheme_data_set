@@ -7,34 +7,45 @@ def cleanWord(word):
 	except Exception as e:
 		return word
 def checkCompatibility(wrd,arp):
-    if wrd[0] == arp[0]:
-        return True
-    else:
+    #if wrd[0] == arp[0]:
+    #    return True
+    #else:
         psbl_match = getValueSet(arp)
-        if wrd in psbl_match:
+        if wrd.lower() in psbl_match:
             return True
+	    return False
+def indexInRange(i, lwrd):
+    if i  <= len(lwrd):
+        return True
+     
     return False
-def indexInRange(i,amv,wmv,larp,lwrd):
-    if larp <= i+amv:
-        return False
-    if lwrd <= i+wmv:
-        return False
-    return True
 def checkOneToOneMapping(word,arpabets):
         wrd_mv = 0
         arp_mv = 0
-	if len(word) == len(arpabets):
+	if True or len(word) == len(arpabets):
 		arp_map = []
+		j=0
 # found possibilty of a simple mapping but will check if multiple map cases exist
-		for i in range(len(word)):
-                    if indexInRange(i,arp_mv,wrd_mv,len(arpabets),len(word)):
-                        if checkCompatibility(word[i+wrd_mv],arpabets[i+arp_mv]):
-                            arp_map.append([word[i+wrd_mv],arpabets[i+arp_mv]])
-                        else:
-                            arp_map.append(['#',arpabets[i+arp_mv]])
-                            arp_mv+=1
-                    else:
-                        arp_map.append([word[i+wrd_mv:],arpabets[i+arp_mv:]])
+		for i in range(len(arpabets)):
+						#print arp_map
+						if  indexInRange(i+j-arp_mv+wrd_mv+1,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv],arpabets[i]):
+							arp_map.append([word[i-arp_mv+j+wrd_mv],arpabets[i]])
+						elif  indexInRange(i-arp_mv+j+wrd_mv+2,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2],arpabets[i]):
+							arp_map.append([word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2],arpabets[i]])
+							j=j+1
+						elif  indexInRange(i-arp_mv+j+wrd_mv+3,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv:i+j+wrd_mv+3],arpabets[i]):	
+							arp_map.append([word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+3],arpabets[i]])
+							j=j+2
+						elif  indexInRange(i-arp_mv+j+wrd_mv+4,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv:j+i+wrd_mv+3+1],arpabets[i]):
+							arp_map.append([word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+3+1],arpabets[i]])
+							j=j+3 
+						
+						else :
+						    arp_map.append(['#',arpabets[i]])
+						    arp_mv+=1
+                    #else:
+                        #arp_map.append([word[i+j+wrd_mv:],arpabets[i+arp_mv:]])
+                        #print i+j,word
 		return True,arp_map
 	return False,list()
 def toFile(arp_map):
@@ -59,7 +70,8 @@ def generateRecords(old_word,arpabets):
     arp_map = []
     check_flag,arp_map = checkOneToOneMapping(word,arpabets)
     if check_flag:
-	    toFile(arp_map)
+		toFile(arp_map)
+    print word,len(word),arp_map            
     #for arpabet in arpabets:
     #    print "|",arpabet,getCategory(arpabet),getValueSet(arpabet),"|\n"
     return
