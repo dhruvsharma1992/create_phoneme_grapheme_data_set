@@ -54,7 +54,7 @@ class RecordFactory:
 			'2_before',
 			'1_after',
 			'2_after',
-			])	
+			])
 			for i,entry in enumerate(record):
 				print "record : ",record
 				print "i : ",i
