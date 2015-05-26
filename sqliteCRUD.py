@@ -60,7 +60,7 @@ class SqliteCRUD:
         VALUES('arpabet','character','arp_type'
         ,'1_before_arp','2_before_arp','1_after_arp'
         ,'2_after_arp','1_before_chr','2_before_chr'
-        ,'1_after_chr','2_after_chr'
+        ,'1_after_chr','2_after_chr');
         '''
         extrct_str = ','.join(str('\''+str(x)+'\'') for x in insert_list)
         pre_extrct_str = 'INSERT INTO '+str(self.table_name)+' VALUES('
@@ -98,4 +98,4 @@ def main():
         to_be_inserted.append(random.choice(['A', 'AH', 'Q', 'QW', 'P', 'I', 'AH', 'LO', 'X']))
     crud_obj.insertIntoTable(to_be_inserted)
     crud_obj.printTable()
-main()
+#main()
