@@ -5,7 +5,8 @@ import random
 import traceback
 import sys
 import sqlite3 as lite
-
+TABLE_NAME = 'training_table'
+DB_NAME = 'training.db'
 
 class SqliteCRUD:
     def __init__(self, db_name, table_name):
@@ -108,11 +109,20 @@ class SqliteCRUD:
         '''
         Main section
         '''
-
-
+    def getFrequencies(self):
+        try:
+            self.cursor.execute('select arpabet,character,count(arpabet) from training_table group by arpabet,character')
+            rows = self.cursor.fetchall()
+            freq_list = []
+            for row in rows:
+               freq_list.append([str(x).encode('ascii','ignore') for x in row])
+            return freq_list
+        except Exception as e:
+            print 'couldn\'t fetch frequencies'
+            print e
+            sys.exit(0)
 def main():
-    TABLE_NAME = 'training_table'
-    crud_obj = SqliteCRUD('training.db', TABLE_NAME)
+    crud_obj = SqliteCRUD(DB_NAME, TABLE_NAME)
     crud_obj.initiateTable(str("CREATE TABLE "+TABLE_NAME+" ('arpabet' TEXT,'character' TEXT,'arp_type' TEXT,'1_before_arp' TEXT,'2_before_arp' TEXT,'1_after_arp' TEXT,'2_after_arp' TEXT,'1_before_chr' TEXT,'2_before_chr' TEXT,'1_after_chr' TEXT,'2_after_chr' TEXT);"))
     crud_obj.printTable()
 
@@ -123,4 +133,11 @@ def main():
             to_be_inserted.append(''.join(random.choice(string.ascii_uppercase) for _ in range(4)))
         crud_obj.insertIntoTable(to_be_inserted)
         #crud_obj.printTable()
+def freq_test():
+   '''select arpabet,character,count(arpabet) from training_table group by arpabet,character''' 
+   crud_obj = SqliteCRUD(DB_NAME, TABLE_NAME)
+   crud_obj.printTable()
+   freq_list = crud_obj.getFrequencies()
+   print freq_list
 #main()
+freq_test()
