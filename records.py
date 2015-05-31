@@ -131,8 +131,8 @@ def iterateAndPushToDB(arp_map,crud_obj):
         toDB_list.append(two_after_chr)
         #print 'arp_map is'
         #print '||',arp_map,'||'
-        print 'inserting into db'
-        print '{{',toDB_list,'}}'
+        #print 'inserting into db'
+        #print '{{',toDB_list,'}}'
         if not pushToDB(toDB_list,crud_obj):
             return False
     return True
@@ -144,7 +144,7 @@ def generateRecords(old_word, arpabets, crud_obj):
     check_flag,arp_map = checkOneToOneMapping(word,arpabets)
     if check_flag:
 		#toFile(arp_map)
-        print '||',arp_map,'||'
+        #print '||',arp_map,'||'
         if iterateAndPushToDB(arp_map,crud_obj):
             print 'success'
         else:

@@ -1,5 +1,6 @@
 #rahul
 #author saransh
+import string
 import random
 import traceback
 import sys
@@ -35,9 +36,10 @@ class SqliteCRUD:
     def insertIntoTable(self, insert_list):
         if self.__checkTable():
             try:
-                insert_query = self.__convertIntoQuery(insert_list)
-                self.cursor.execute(insert_query)
-                self.connection.commit()
+                if self.__redundancyCheck(insert_list):
+                    insert_query = self.__convertIntoQuery(insert_list)
+                    self.cursor.execute(insert_query)
+                    self.connection.commit()
             except Exception as e:
                 print 'couldn\'t execute query. exiting'
                 print traceback.format_exc()
@@ -48,6 +50,27 @@ class SqliteCRUD:
             print 'insert query was not executed'
             return
 
+    def __redundancyCheck(self, insert_list):
+        table_param = ['"arpabet"', '"character"', '"arp_type"'\
+        , '"1_before_arp"', '"2_before_arp"', '"1_after_arp"'\
+        ,'"2_after_arp"', '"1_before_chr"'\
+        ,'"2_before_chr"','"1_after_chr"','"2_after_chr"']
+        #proud of the folowing statement B-)
+        map_list = ' and '.join(str(ele) for ele in [str(x[0]+' = \''+x[1]+'\'') for x in zip(table_param,insert_list)])
+        #print map_list
+        try:
+            self.cursor.execute("SELECT COUNT(*) FROM "+ str(self.table_name) +" WHERE "+map_list)
+            rows = self.cursor.fetchone()
+            if int(str(rows)[1:-2]) > 0:
+                print "0",
+                return False
+            else:
+                print "1",
+                return True
+        except Exception as e:
+                print 'couldn\'t complete redundancy check, exiting ...'
+                print e
+                sys.exit(0)
     def __checkTable(self):
         try:
             self.cursor.execute("SELECT * FROM "+str(self.table_name))
@@ -93,9 +116,11 @@ def main():
     crud_obj.initiateTable(str("CREATE TABLE "+TABLE_NAME+" ('arpabet' TEXT,'character' TEXT,'arp_type' TEXT,'1_before_arp' TEXT,'2_before_arp' TEXT,'1_after_arp' TEXT,'2_after_arp' TEXT,'1_before_chr' TEXT,'2_before_chr' TEXT,'1_after_chr' TEXT,'2_after_chr' TEXT);"))
     crud_obj.printTable()
 
-    to_be_inserted = []
-    for x in range(11):
-        to_be_inserted.append(random.choice(['A', 'AH', 'Q', 'QW', 'P', 'I', 'AH', 'LO', 'X']))
-    crud_obj.insertIntoTable(to_be_inserted)
-    crud_obj.printTable()
+
+    for _ in range (10000):
+        to_be_inserted = []
+        for x in range(11):
+            to_be_inserted.append(''.join(random.choice(string.ascii_uppercase) for _ in range(4)))
+        crud_obj.insertIntoTable(to_be_inserted)
+        #crud_obj.printTable()
 #main()

@@ -2,7 +2,7 @@ from records import *
 
 INPUT_FILE = "wordsLogios.txt" #OP
 open('testSet','w').close()
-crud_obj = getCRUDObject() 
+crud_obj = getCRUDObject()
 with open(INPUT_FILE) as fread:
     for line in fread:
         word=line.split()[0]
