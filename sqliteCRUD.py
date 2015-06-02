@@ -121,9 +121,28 @@ class SqliteCRUD:
             print 'couldn\'t fetch frequencies'
             print e
             sys.exit(0)
+    def getParameterMapping(self):
+        param_map = dict()
+        try:
+            self.cursor.execute('select * from training_table order by arpabet,character;')
+            row = self.cursor.fetchone()
+            arg_dict = dict()
+            while row:
+                record = [str(rec).encode('ascii', 'ignore') for rec in row]
+                print record
+                self._checkAndInsertToMapping()
+                row = self.cursor.fetchone()
+        except Exception as e:
+            print 'mapping query couldn\'t be executed, exiting ..'
+            print e
+    def _checkAndInsertToMapping(self, 
+
 def main():
     crud_obj = SqliteCRUD(DB_NAME, TABLE_NAME)
-    crud_obj.initiateTable(str("CREATE TABLE "+TABLE_NAME+" ('arpabet' TEXT,'character' TEXT,'arp_type' TEXT,'1_before_arp' TEXT,'2_before_arp' TEXT,'1_after_arp' TEXT,'2_after_arp' TEXT,'1_before_chr' TEXT,'2_before_chr' TEXT,'1_after_chr' TEXT,'2_after_chr' TEXT);"))
+    crud_obj.initiateTable(str("CREATE TABLE "+TABLE_NAME+" ('arpabet' TEXT,\
+            'character' TEXT,'arp_type' TEXT,'1_before_arp' TEXT,'2_before_arp'\
+            TEXT,'1_after_arp' TEXT,'2_after_arp' TEXT,'1_before_chr' TEXT,\
+            '2_before_chr' TEXT,'1_after_chr' TEXT,'2_after_chr' TEXT);"))
     crud_obj.printTable()
 
 
@@ -140,4 +159,4 @@ def freq_test():
    freq_list = crud_obj.getFrequencies()
    print freq_list
 #main()
-freq_test()
+#freq_test()

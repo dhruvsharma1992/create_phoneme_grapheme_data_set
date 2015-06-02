@@ -1,5 +1,7 @@
-category = { 'vowel':['ah','ae','eh','ih','iy','aw','ao','uw','y' ],\
-             'consonant':['k']}
+category = { 'vowel':['ah','ae','eh','ih','iy','aw','ao','uw','y', 'aa', \
+                'ay', 'eh', 'er', 'ey', 'ih', 'ow'],\
+             'consonant':['k', 'b', 'd', 'f', 'g', 'jh', 'l', 'm', 'n', \
+                'p', 'r' ,'s', 't', 'v', 'w', 'z']}
 arpabetDict =   {'ao':['o'],\
                  'w':['w','v','u'],\
                 'aa':['a','o'],\
@@ -40,14 +42,16 @@ arpabetDict =   {'ao':['o'],\
                 'r':['r','re'],\
                 'y':['y']
                }
-              
- 
+
+
 def getCategory(arpabet):
     if arpabet.lower() in category['vowel'] or arpabet.upper() in category['vowel']:
         return 'vowel'
     elif arpabet.lower() in category['consonant'] or arpabet.upper() in category['consonant']:
         return 'consonant'
     else:
+        print 'this character to be added :', arpabet
+        print category['consonant']
         return 'to be added'
 
 def getValueSet(arpabet):
