@@ -2,15 +2,15 @@ category = { 'vowel':['ah','ae','eh','ih','iy','aw','ao','uw','y', 'aa', \
                 'ay', 'eh', 'er', 'ey', 'ih', 'ow'],\
              'consonant':['k', 'b', 'd', 'f', 'g', 'jh', 'l', 'm', 'n', \
                 'p', 'r' ,'s', 't', 'v', 'w', 'z']}
-arpabetDict =   {'ao':['o'],\
+arpabetDict =   {'ao':['o','au','ough'],\
                  'w':['w','v','u'],\
-                'aa':['a','o'],\
-                'iy':['e','ee','ea','y'],\
+                'aa':['a','o','au'],\
+                'iy':['i','e','ee','ea','y'],\
                 'uw':['ou','ew','u'],\
-                'eh':['e'],\
-                'ih':['i'],\
+                'eh':['e','ae'],\
+                'ih':['i','e','y'],\
                 'uh':['oul','u','ou','o'],\
-                'ah':['u','o','a','e','i'],\
+                'ah':['u','o','a','e','i','ou'],\
                 'ae':['e','a','ay'],\
                 'ey':['ai','ei', 'ay','a','e'],\
                 'ay':['y','i'],\
@@ -18,12 +18,11 @@ arpabetDict =   {'ao':['o'],\
                 'aw':['ow','ou'],\
                 'oy':['oy'],\
                 'er':['er','our'],\
-                'ao':['o','ough'],\
                 'ow':['ow','o'], \
                 'p':['p','pe'],\
                 'b':['b','be'],\
                 'k':['c','k','ch','q','ck'],\
-                'l':['l','le'],\
+                'l':['l','le','ll'],\
                 'd':['d','de'],\
                 't':['t','tt','te'],\
                 'ch':['ch'],\
@@ -34,13 +33,13 @@ arpabetDict =   {'ao':['o'],\
                 'dh':['dh','th'],\
                 'z':['z','s'],\
                 'hh':['h'],\
-                's':['s','c','ce','se'],\
-                'sh':['sh','tio','s'],\
+                's':['s','c','ce','se','ss'],\
+                'sh':['sh','tio','s','ch'],\
                 'th':['th'],\
                 'm':['m','me','mm'],\
                 'n':['n','ne','nn'],\
                 'r':['r','re'],\
-                'y':['y']
+                'y':['y','i']
                }
 
 
@@ -50,8 +49,8 @@ def getCategory(arpabet):
     elif arpabet.lower() in category['consonant'] or arpabet.upper() in category['consonant']:
         return 'consonant'
     else:
-        print 'this character to be added :', arpabet
-        print category['consonant']
+        #print 'this character to be added :', arpabet
+        #print category['consonant']
         return '#'
 
 def getPos(one_before_arp,two_before_arp,three_before_arp, one_after_arp,two_after_arp,three_after_arp):
