@@ -67,7 +67,29 @@ def fromFile():
 def getCRUDObject():
     TABLE_NAME = 'training_table'
     crud_obj = SqliteCRUD('training.db', TABLE_NAME)
-    crud_obj.initiateTable(str("CREATE TABLE "+TABLE_NAME+" ('arpabet' TEXT,'character' TEXT,'arp_type' TEXT,'1_before_arp' TEXT,'2_before_arp' TEXT,'1_after_arp' TEXT,'2_after_arp' TEXT,'1_before_chr' TEXT,'2_before_chr' TEXT,'1_after_chr' TEXT,'2_after_chr' TEXT);"))
+    crud_obj.initiateTable(str("CREATE TABLE "+TABLE_NAME+\
+            " ('arpabet' TEXT,\
+            'character' TEXT,\
+            'arp_type' TEXT,\
+            '1_before_arp' TEXT,\
+            '2_before_arp' TEXT,\
+            '3_before_arp' TEXT,\
+            '1_after_arp' TEXT,\
+            '2_after_arp' TEXT,\
+            '3_after_arp'  TEXT,\
+            '1_before_chr' TEXT,\
+            '2_before_chr' TEXT ,\
+            '3_before_chr' TEXT,\
+            '1_after_chr' TEXT,\
+            '2_after_chr' TEXT,\
+            '3_after_chr' TEXT,\
+            '1_before_arp_type' TEXT,\
+            '2_before_arp_type' TEXT,\
+            '3_before_arp_type' TEXT,\
+            '1_after_arp_type' TEXT,\
+            '2_after_arp_type' TEXT,\
+            '3_after_arp_type'  TEXT,\
+            'position' TEXT );"))
     return crud_obj
 def pushToDB(toDB, crud_obj):
     try:
@@ -81,9 +103,9 @@ def pushToDB(toDB, crud_obj):
 
 def iterateAndPushToDB(arp_map,crud_obj):
     '''('arpabet','character','arp_type'
-        ,'1_before_arp','2_before_arp','1_after_arp'
-        ,'2_after_arp','1_before_chr','2_before_chr'
-        ,'1_after_chr','2_after_chr');
+        ,'1_before_arp','2_before_arp','3_before_arp','1_after_arp'
+        ,'2_after_arp','3_after_arp''1_before_chr','2_before_chr','3_before_chr'
+        ,'1_after_chr','2_after_chr','3_after_chr');
     '''
     for i in range(len(arp_map)):
         arpabet = str(arp_map[i][1])
@@ -102,6 +124,13 @@ def iterateAndPushToDB(arp_map,crud_obj):
             two_before_arp = '#'
             two_before_chr = '#'
 
+        if indexInRange(i-3,arp_map):
+            three_before_arp = str(arp_map[i-3][1])
+            three_before_chr = str(arp_map[i-3][0])
+        else:
+            three_before_arp = '#'
+            three_before_chr = '#'
+
         if indexInRange(i+1,arp_map):
             one_after_arp = str(arp_map[i+1][1])
             one_after_chr = str(arp_map[i+1][0])
@@ -116,6 +145,13 @@ def iterateAndPushToDB(arp_map,crud_obj):
             two_after_arp = '#'
             two_after_chr = '#'
 
+        if indexInRange(i+3,arp_map):
+            three_after_arp = str(arp_map[i+3][1])
+            three_after_chr = str(arp_map[i+3][0])
+        else:
+            three_after_arp = '#'
+            three_after_chr = '#'
+
         arp_type = str(getCategory(arp_map[i][1]))
         toDB_list = []
         toDB_list.append(arpabet)
@@ -123,12 +159,23 @@ def iterateAndPushToDB(arp_map,crud_obj):
         toDB_list.append(arp_type)
         toDB_list.append(one_before_arp)
         toDB_list.append(two_before_arp)
+        toDB_list.append(three_before_arp)
         toDB_list.append(one_after_arp)
         toDB_list.append(two_after_arp)
+        toDB_list.append(three_after_arp)
         toDB_list.append(one_before_chr)
         toDB_list.append(two_before_chr)
+        toDB_list.append(three_before_chr)
         toDB_list.append(one_after_chr)
         toDB_list.append(two_after_chr)
+        toDB_list.append(three_after_chr)
+        toDB_list.append(getCategory(one_before_arp))
+        toDB_list.append(getCategory(two_before_arp))
+        toDB_list.append(getCategory(three_before_arp))
+        toDB_list.append (getCategory(one_after_arp))
+        toDB_list.append (getCategory(two_after_arp))
+        toDB_list.append (getCategory(three_after_arp))
+        toDB_list.append(getPos(one_before_arp,two_before_arp,three_before_arp,one_after_arp,two_after_arp,three_after_arp))
         #print 'arp_map is'
         #print '||',arp_map,'||'
         #print 'inserting into db'

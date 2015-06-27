@@ -52,8 +52,16 @@ def getCategory(arpabet):
     else:
         print 'this character to be added :', arpabet
         print category['consonant']
-        return 'to be added'
+        return '#'
 
+def getPos(one_before_arp,two_before_arp,three_before_arp, one_after_arp,two_after_arp,three_after_arp):
+    if (one_before_arp == '#' or two_before_arp == '#' or three_before_arp == '#') and  (not one_after_arp == '#') and (not two_after_arp=='#') and (not three_after_arp=='#'):
+        return '0'
+    elif  (one_after_arp=='#' or two_after_arp == '#' or three_after_arp=='#') and (not one_before_arp == '#') and (not two_before_arp=='#') and (not three_before_arp=='#'):
+        return '2'
+    else:
+        return '1'
+    
 def getValueSet(arpabet):
     if arpabet.lower() in arpabetDict:
         return arpabetDict[arpabet.lower()]
