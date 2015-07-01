@@ -27,35 +27,44 @@ def checkOneToOneMapping(word,arpabets):
 		j = 0
 		i = 0
 		# found possibilty of a simple mapping but will check if multiple map cases exist
+		print arpabets
 		while i < len(arpabets):
 						#print i,j
 						#print arp_map
+			print arpabets[i]
+			character = ""
 			if  indexInRange(i+j-arp_mv+wrd_mv+0,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv],arpabets[i]):
 				arp_map.append([word[i-arp_mv+j+wrd_mv],arpabets[i]])
+				character =  word[i-arp_mv+j+wrd_mv]
 			elif  indexInRange(i-arp_mv+j+wrd_mv+1,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2],arpabets[i]):
 				arp_map.append([word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2],arpabets[i]])
+				character =  word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2]
 				j=j+1
 			elif  indexInRange(i-arp_mv+j+wrd_mv+2,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv:i+j+wrd_mv+3],arpabets[i]):	
 				arp_map.append([word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+3],arpabets[i]])
 				j=j+2
+				character = word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+3]
 			elif  indexInRange(i-arp_mv+j+wrd_mv+3,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv:j+i+wrd_mv+3+1],arpabets[i]):
 				arp_map.append([word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+3+1],arpabets[i]])
+				character = word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+4]
 				j=j+3 
 			
 			else :
-				#print word
+				print word
 				'''print indexInRange(i-arp_mv+j+wrd_mv,word),checkCompatibility(word[i-arp_mv+j+wrd_mv],arpabets[i])  
 				print indexInRange(i-arp_mv+j+wrd_mv+1,word) , checkCompatibility(word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2],arpabets[i])
 				print indexInRange(i-arp_mv+j+wrd_mv+2,word) , checkCompatibility(word[i-arp_mv+j+wrd_mv:i+j+wrd_mv+3],arpabets[i])
 				print indexInRange(i-arp_mv+j+wrd_mv+3,word) , checkCompatibility(word[i-arp_mv+j+wrd_mv:j+i+wrd_mv+3+1],arpabets[i])'''
 				if indexInRange(i-arp_mv+j+wrd_mv,word) and i>0 and checkCompatibility(arp_map[len(arp_map)-1][0]+word[i-arp_mv+j+wrd_mv],arpabets[i-1]):
+					
+					arp_map[len(arp_map)-1]=[arp_map[len(arp_map)-1][0]+word[i-arp_mv+j+wrd_mv],arpabets[i-1]]
 					i = i-1
 					j=j+1
-					arp_map[len(arp_map)-1]=[arp_map[len(arp_map)-1][0]+word[i-arp_mv+j+wrd_mv],arpabets[i-1]]
 				else:
 				    arp_map.append(['#',arpabets[i]])
 				    arp_mv+=1
 			i = i+1
+			print character, arp_map 
 		return True,arp_map
 	return False,list()
 def toFile(arp_map):
