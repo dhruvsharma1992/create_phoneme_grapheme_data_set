@@ -135,7 +135,7 @@ class SqliteCRUD:
         except Exception as e:
             print 'mapping query couldn\'t be executed, exiting ..'
             print e
-    def _checkAndInsertToMapping(self, 
+    
 
 def main():
     crud_obj = SqliteCRUD(DB_NAME, TABLE_NAME)
