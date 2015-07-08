@@ -1,47 +1,10 @@
 category = { 'vowel':['ah','ae','eh','ih','iy','aw','ao','uw','y', 'aa', \
-                'ay', 'eh', 'er', 'ey', 'ih', 'ow'],\
+                'ay', 'eh', 'er', 'ey', 'ih', 'ow','uh'],\
              'consonant':['k', 'b', 'd', 'f', 'g', 'jh', 'l', 'm', 'n', \
-                'p', 'r' ,'s', 't', 'v', 'w', 'z']}
-arpabetDict =   {'ao':['o','au','ough'],\
-                 'w':['w','v','u'],\
-                'aa':['a','o','au'],\
-                'iy':['i','e','ee','ea','y'],\
-                'uw':['ou','ew','u'],\
-                'eh':['e','ae'],\
-                'ih':['i','e','y'],\
-                'uh':['oul','u','ou','o'],\
-                'ah':['u','o','a','e','i','ou'],\
-                'ae':['e','a','ay'],\
-                'ey':['ai','ei', 'ay','a','e'],\
-                'ay':['y','i'],\
-                'ow':['o','oa'],\
-                'aw':['ow','ou'],\
-                'oy':['oy'],\
-                'er':['er','our'],\
-                'ow':['ow','o'], \
-                'p':['p','pe'],\
-                'b':['b','be'],\
-                'k':['c','k','ch','q','ck'],\
-                'l':['l','le','ll'],\
-                'd':['d','de'],\
-                't':['t','tt','te'],\
-                'ch':['ch'],\
-                'g':['g','ge'],\
-                'jh':['j','g'],\
-                'v':['v','w','wh'],\
-                'f':['f','ph','ough'],\
-                'dh':['dh','th'],\
-                'z':['z','s'],\
-                'hh':['h'],\
-                's':['s','c','ce','se','ss'],\
-                'sh':['sh','tio','s','ch'],\
-                'th':['th'],\
-                'm':['m','me','mm'],\
-                'n':['n','ne','nn'],\
-                'r':['r','re'],\
-                'y':['y','i']
-               }
+                'p', 'r' ,'s', 't', 'v', 'w', 'z','ch','dh','hh','zh', 'oy',  'ng','sh','th']}
 
+arpabetDict =   {
+                 'aa': ['o', 'a', 'au'], 'iy': ['i', 'e', 'y', 'ea', 'ee', 'ie'], 'ch': ['ch'], 'ae': ['a', 'e', 'ay'], 'eh': ['e', 'ae', 'a'], 'ah': ['e', 'a', 'u', 'i', 'o', 'ou', 'io'], 'ao': ['o', 'au'], 'ih': ['e', 'i', 'y'], 'ey': ['a', 'ai', 'ay', 'e', 'ei'], 'aw': ['ou', 'ow'], 'ay': ['i', 'y'], 'zh': [], 'er': ['er', 'our', 'ur', 'or'], 'ng': ['ng'], 'sh': ['tio', 'sh', 's', 'ch', 'ss'], 'th': ['th'], 'uh': ['o', 'u', 'ou', 'oul'], 'w': ['u', 'w'], 'dh': ['th'], 'y': ['i', 'y'], 'hh': ['h'], 'jh': ['j', 'g'], 'b': ['b', 'be'], 'd': ['d', 'de'], 'g': ['g', 'ge'], 'f': ['ph', 'f'], 'k': ['c', 'q', 'ck', 'k', 'ch'], 'm': ['m', 'me', 'mm'], 'l': ['l', 'le', 'll'], 'n': ['n', 'nn', 'ne'], 'p': ['p', 'pe'], 's': ['ss', 'c', 's', 'ce', 'se'], 'r': ['r', 're'], 't': ['t', 'te', 'tt'], 'oy': ['oy'], 'v': ['v', 've'], 'ow': ['o', 'ow'], 'z': ['s', 'z'], 'uw': ['u', 'ew', 'ou']}
 
 def getCategory(arpabet):
     if arpabet.lower() in category['vowel'] or arpabet.upper() in category['vowel']:
