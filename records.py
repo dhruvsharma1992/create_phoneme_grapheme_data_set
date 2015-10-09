@@ -27,42 +27,67 @@ def checkOneToOneMapping(word,arpabets):
 		j = 0
 		i = 0
 		# found possibilty of a simple mapping but will check if multiple map cases exist
-		print arpabets
+		#print arpabets
 		while i < len(arpabets):
 						#print i,j
 						#print arp_map
 			#print arpabets[i]
 			character = ""
-			if  indexInRange(i+j-arp_mv+wrd_mv+0,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv],arpabets[i]):
-				arp_map.append([word[i-arp_mv+j+wrd_mv],arpabets[i]])
-				character =  word[i-arp_mv+j+wrd_mv]
-			elif  indexInRange(i-arp_mv+j+wrd_mv+1,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2],arpabets[i]):
-				arp_map.append([word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2],arpabets[i]])
-				character =  word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2]
-				j=j+1
-			elif  indexInRange(i-arp_mv+j+wrd_mv+2,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv:i+j+wrd_mv+3],arpabets[i]):	
-				arp_map.append([word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+3],arpabets[i]])
-				j=j+2
-				character = word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+3]
-			elif  indexInRange(i-arp_mv+j+wrd_mv+3,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv:j+i+wrd_mv+3+1],arpabets[i]):
-				arp_map.append([word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+3+1],arpabets[i]])
-				character = word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+4]
-				j=j+3 
-			
-			else :
-				#print word
-				'''print indexInRange(i-arp_mv+j+wrd_mv,word),checkCompatibility(word[i-arp_mv+j+wrd_mv],arpabets[i])  
-				print indexInRange(i-arp_mv+j+wrd_mv+1,word) , checkCompatibility(word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2],arpabets[i])
-				print indexInRange(i-arp_mv+j+wrd_mv+2,word) , checkCompatibility(word[i-arp_mv+j+wrd_mv:i+j+wrd_mv+3],arpabets[i])
-				print indexInRange(i-arp_mv+j+wrd_mv+3,word) , checkCompatibility(word[i-arp_mv+j+wrd_mv:j+i+wrd_mv+3+1],arpabets[i])'''
-				if indexInRange(i-arp_mv+j+wrd_mv,word) and i>0 and checkCompatibility(arp_map[len(arp_map)-1][0]+word[i-arp_mv+j+wrd_mv],arpabets[i-1]):
-					
-					arp_map[len(arp_map)-1]=[arp_map[len(arp_map)-1][0]+word[i-arp_mv+j+wrd_mv],arpabets[i-1]]
-					i = i-1
+			if i==len(arpabets)-1:
+				if indexInRange(i-arp_mv+j+wrd_mv+3,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv:j+i+wrd_mv+3+1],arpabets[i]):
+					arp_map.append([word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+3+1],arpabets[i]])
+					character = word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+4]
+					j=j+3 
+				elif  indexInRange(i-arp_mv+j+wrd_mv+2,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv:i+j+wrd_mv+3],arpabets[i]):	
+					arp_map.append([word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+3],arpabets[i]])
+					j=j+2
+					character = word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+3]
+				elif  indexInRange(i-arp_mv+j+wrd_mv+1,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2],arpabets[i]):
+					arp_map.append([word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2],arpabets[i]])
+					character =  word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2]
 					j=j+1
-				else:
-				    arp_map.append(['#',arpabets[i]])
-				    arp_mv+=1
+		
+				elif indexInRange(i+j-arp_mv+wrd_mv+0,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv],arpabets[i]):
+					arp_map.append([word[i-arp_mv+j+wrd_mv],arpabets[i]])
+					character =  word[i-arp_mv+j+wrd_mv] 				
+				else :
+					if indexInRange(i-arp_mv+j+wrd_mv,word) and i>0 and checkCompatibility(arp_map[len(arp_map)-1][0]+word[i-arp_mv+j+wrd_mv],arpabets[i-1]):						
+						arp_map[len(arp_map)-1]=[arp_map[len(arp_map)-1][0]+word[i-arp_mv+j+wrd_mv],arpabets[i-1]]
+						i = i-1
+						j=j+1
+					else:
+					    arp_map.append(['#',arpabets[i]])
+					    arp_mv+=1
+			else:
+				if  indexInRange(i+j-arp_mv+wrd_mv+0,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv],arpabets[i]):
+					arp_map.append([word[i-arp_mv+j+wrd_mv],arpabets[i]])
+					character =  word[i-arp_mv+j+wrd_mv]
+				elif  indexInRange(i-arp_mv+j+wrd_mv+1,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2],arpabets[i]):
+					arp_map.append([word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2],arpabets[i]])
+					character =  word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2]
+					j=j+1
+				elif  indexInRange(i-arp_mv+j+wrd_mv+2,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv:i+j+wrd_mv+3],arpabets[i]):	
+					arp_map.append([word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+3],arpabets[i]])
+					j=j+2
+					character = word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+3]
+				elif  indexInRange(i-arp_mv+j+wrd_mv+3,word) and checkCompatibility(word[i-arp_mv+j+wrd_mv:j+i+wrd_mv+3+1],arpabets[i]):
+					arp_map.append([word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+3+1],arpabets[i]])
+					character = word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+4]
+					j=j+3 				
+				else :
+					if indexInRange(i-arp_mv+j+wrd_mv,word) and i>0 and checkCompatibility(arp_map[len(arp_map)-1][0]+word[i-arp_mv+j+wrd_mv],arpabets[i-1]):						
+						arp_map[len(arp_map)-1]=[arp_map[len(arp_map)-1][0]+word[i-arp_mv+j+wrd_mv],arpabets[i-1]]
+						i = i-1
+						j=j+1
+					
+					elif indexInRange(i-arp_mv+j+wrd_mv+1,word) and i>0 and checkCompatibility(arp_map[len(arp_map)-1][0]+word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2],arpabets[i-1]):						
+						arp_map[len(arp_map)-1]=[arp_map[len(arp_map)-1][0]+word[i-arp_mv+j+wrd_mv:i-arp_mv+j+wrd_mv+2],arpabets[i-1]]
+						i = i-1
+						j=j+2
+					
+					else:
+					    arp_map.append(['#',arpabets[i]])
+					    arp_mv+=1
 			i = i+1
 			#print character, arp_map 
 		return True,arp_map
@@ -84,7 +109,7 @@ def fromFile():
         finally:
             return
 def getCRUDObject():
-    TABLE_NAME = 'training_table'
+    TABLE_NAME = 'training_table_2'
     crud_obj = SqliteCRUD('training.db', TABLE_NAME)
     crud_obj.initiateTable(str("CREATE TABLE "+TABLE_NAME+\
             " ('arpabet' TEXT,\
@@ -214,7 +239,8 @@ def generateRecords(old_word, arpabets, crud_obj):
     #if len(word) > 2:
     arp_map = []
     check_flag,arp_map = checkOneToOneMapping(word,arpabets)
-    print word, arp_map,arpabets
+    
+    #return[word,arp_map]
     for i in range(1,len(arp_map)-1):
 		if arp_map[i][0] == '#':
 			if arp_map[i-1][0] == '#' or arp_map[i+1][0] == '#':
@@ -230,4 +256,5 @@ def generateRecords(old_word, arpabets, crud_obj):
     #print word,len(word),arp_map            
     #for arpabet in arpabets:
     #    print "|",arpabet,getCategory(arpabet),getValueSet(arpabet),"|\n"
-    return
+    #print word,check_flag#, arp_map
+    return [check_flag,arp_map]
