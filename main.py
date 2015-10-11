@@ -9,6 +9,12 @@ crud_obj = SqliteCRUD(DB_NAME, TABLE_NAME)
 from RmodulesImpl import *
 rf={}
 
+def pyDict(li):
+    feature={}
+    classes = ["1_before_arp","2_before_arp" ,"3_before_arp" ,"1_after_arp" ,"2_after_arp" ,"3_after_arp"]
+    for i in range(len(li)):
+        feature[classes[i]]=li[i]
+    return feature
 def getMatrix(inputMat):
     n= (int)(math.sqrt(4*len(inputMat)+1)-1)/2
     #print n,len(inputMat)
@@ -57,16 +63,26 @@ def train(ph):
                             +str(ph)+'" ORDER BY RANDOM()  LIMIT 1000 ;')                    
     rows = crud_obj.cursor.fetchall()
     ch_count = {}
-    records = []
+    classes = ["1_before_arp","2_before_arp" ,"3_before_arp" ,"1_after_arp" ,"2_after_arp" ,"3_after_arp"]
+    records = {}
+    for key in classes:
+        records[key]  = []
     ch = []
+    #j = 0
     for row in rows:
         record = [str(rec).encode('ascii', 'ignore') for rec in row]          
-        records += [[ arpabetClass[phoneme.lower()][0] for phoneme in record[2:]]]
+        #print j,#records += [[ arpabetClass[phoneme.lower()][0] for phoneme in record[2:]]]
+        #print len(record)
+        for i in range(len(record)-2):
+            records[classes[i]] +=  [arpabetClass[record[i+2].lower()][0]] 
         ch += [record[1]] 
-        '''if not record[1] in ch_count.keys():
+     
+    '''if not record[1] in ch_count.keys():
             ch_count[record[1]]=0
         ch_count[record[1]]+=1'''
-    
+    #for key in records.keys():
+    #    print key,len(records[key])
+    #print len(ch)
     rf[ph] = getModelRandomForest(records,ch,["1_before_arp","2_before_arp" ,"3_before_arp" ,"1_after_arp" ,"2_after_arp" ,"3_after_arp"])
         #row = crud_obj.cursor.fetchone()
     #print records
@@ -129,8 +145,13 @@ def featureSet(i, arp_map):
 
 def classifyPhoneme(phoneme, features): 
     if not phoneme in rf.keys():
-        train(phoneme)           
-    return predictRandomForest(features, rf[phoneme])
+        train(phoneme)     
+    classes = ["1_before_arp","2_before_arp" ,"3_before_arp" ,"1_after_arp" ,"2_after_arp" ,"3_after_arp"]
+    
+    features = [[ arpabetClass[f.lower()][0] for f in features[1:]]]      
+    print 'features', features,phoneme
+    #print type(rf[phoneme])
+    return predictRandomForest(features, rf[phoneme],classes)
 
 
 def test():
@@ -167,10 +188,10 @@ def test():
             for i in range(len(phonemeSet)):
                 print featureSet( i ,phonemeSet)
                 character_set += classifyPhoneme(phonemeSet[i],featureSet( i ,phonemeSet))
-            #generated_word = "".join(character_set)
+            generated_word = "".join(character_set)
 
-train('K')
-#print 
+#train('K')
+test()#print 
  
 #print r.dimnames(rf[8])'''
 
