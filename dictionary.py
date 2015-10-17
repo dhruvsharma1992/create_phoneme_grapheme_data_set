@@ -13,12 +13,12 @@ arpabetDict =   {
                    'ah': ['e', 'a' , 'u', 'i', 'o', 'ou', 'io','ai','eu' ], \
                    'ao': ['o', 'au'], \
                    'ih': ['e', 'i', 'y'], \
-                   'ey': ['a','e', 'ai', 'ay','aie','aye', 'ei','eie','ea'], \
-                   'aw': ['ou', 'ow'], \
+                   'ey': ['a','e', 'ai', 'ay','ey','aie','aye', 'ei','eie','ea'], \
+                   'aw': ['ou','au', 'ow'], \
                    'ay': ['i', 'y','ie'], \
                    'zh': [], \
                    'er': ['er', 'our', 'ur', 'or'], \
-                   'ng': ['ng'], \
+                   'ng': ['ng','x'], \
                    'sh': ['tio', 'sh', 's','c', 'ch', 'ss'], \
                    'th': ['th'], \
                    'uh': ['o', 'u', 'ou', 'oul','oo'], \
@@ -28,10 +28,10 @@ arpabetDict =   {
                    'hh': ['h'], \
                    'jh': ['j', 'g','ge','dge'], \
                    'b': ['b', 'bb',  'be'], \
-                   'd': ['d','ed', 'de'], \
+                   'd': ['d','ed', 'de','dh'], \
                    'g': ['g', 'ge'], \
                    'f': ['ph', 'f','ff'], \
-                   'k': ['c', 'q', 'ck', 'k', 'ch','ke','que','cc'], \
+                   'k': ['c', 'q', 'ck', 'k', 'ch','ke','que','cc','x'], \
                    'm': ['m', 'me', 'mm'], \
                    'l': ['l', 'le', 'll'], \
                    'n': ['n', 'nn', 'ne','gn'], \
@@ -85,9 +85,9 @@ arpabetClass =   {
                    'ow': ['O','O'], \
                    'z': ['S', 'S'], \
                    'uw': ['U','U'],\
-                   '#':['#','#']}
+                   '#':['XX','XX']}
 
-ipa = {'a': '',
+ipa_ = {'a': '',
 'c': '',
 'e': '',
 'f': '',
