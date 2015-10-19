@@ -216,12 +216,14 @@ def chooseBestResult(prob_class_list):
         if max_tup[1] > x[1]:
             max_tup = x
     return max_tup[0]
-
-def main():
-    '''for x in arpabetDict.keys():
+def get_model():
+    for x in arpabetDict.keys():
         getAllModelList(x.upper())
     
-    joblib.dump(linear_model_dict, 'linear_model_dict.pkl') '''
+    joblib.dump(linear_model_dict, 'linear_model_dict.pkl') 
+    
+def main():
+    
     #linear_model_dict = joblib.load('linear_model_dict.pkl')
     #print linear_model_dict.keys()
     f=file('output_model.txt','w').close()
