@@ -11,6 +11,7 @@ from sklearn.externals import joblib
 
 crud_obj = SqliteCRUD(DB_NAME,TABLE_NAME)
 factors = []
+linear_model_dict = {}
 linear_model_dict =  joblib.load('linear_model_dict.pkl')
 for key in arpabetClass.keys():
     if not arpabetClass[key][0] in factors:
